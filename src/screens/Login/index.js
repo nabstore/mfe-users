@@ -1,43 +1,20 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { Button } from '@nabstore/styleguide';
+import { Button } from "@nabstore/styleguide";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faKey, faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import {
-  Container,
-  Input,
-  Title,
-  Label,
-  Line,
-  SignUpLink,
-} from "./styles";
-import apiMethods from "../../services/api";
+import { Input, Title, Label, Line, SignUpLink } from "./styles";
+import Container from "../../components/Container";
+import useLogin from "../../hooks/useLogin";
+import LoadingIcons from "react-loading-icons";
 
 const Login = ({ loginAction }) => {
   const [email, setEmail] = useState("");
-  const [error, setError] = useState(false);
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
-  const cart = useSelector((state) => state.cart);
-
-  const dispatch = useDispatch();
+  const { error, isLoading, login } = useLogin(loginAction);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    apiMethods
-      .login({ email, password })
-      .then((resp) => {
-        dispatch(loginAction(resp));
-        setError(false);
-        if (cart.produtos.length > 0) navigate("/enderecos");
-        else navigate("/");
-      })
-      .catch((err) => {
-        if (err.response?.status === 400) {
-          setError(true);
-        }
-      });
+    login(email, password);
   };
 
   return (
@@ -72,8 +49,14 @@ const Login = ({ loginAction }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        <div className="invalid-feedback">E-mail e/ou senha inválido(s).</div>
 
-        <Button.Secondary margin="50px 0">Entrar</Button.Secondary>
+        <Button.Secondary
+          margin="50px 0"
+          disabled={password === "" || email === ""}
+        >
+          {isLoading ? <LoadingIcons.Oval stroke="#2f2f2f" /> : "Entrar"}
+        </Button.Secondary>
 
         <div className="d-flex justify-content-center">
           <SignUpLink to="/users/signup">

@@ -2,14 +2,6 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Typography } from "@nabstore/styleguide";
 
-const Container = styled.div`
-  max-width: 600px;
-  border: 1px solid #dbdbdb;
-  height: 753px;
-  border-radius: 13px;
-  padding: 50px;
-`;
-
 const Title = styled(Typography.Title)`
   font-size: 48px !important;
   line-height: 64px;
@@ -57,4 +49,4 @@ const SignUpLink = styled(Link)`
   text-align: center;
 `;
 
-export { Container, Title, Input, Label, Line, SignUpLink };
+export { Title, Input, Label, Line, SignUpLink };

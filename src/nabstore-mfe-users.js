@@ -8,7 +8,7 @@ const lifecycles = singleSpaReact({
   ReactDOM,
   rootComponent: App,
   errorBoundary(err, info, props) {
-    return <div className="mt-16">Error</div>;
+    return <h1 className="mt-16">Erro ao carregar micro frontend users: {err.message}</h1>;
   },
 });
 

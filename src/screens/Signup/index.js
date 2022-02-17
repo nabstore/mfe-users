@@ -6,7 +6,7 @@ const SignUp = () => {
   return (
     <>
       <Typography.Title>SignUp</Typography.Title>
-      <Link to="/login">Já possui conta? Fala login aqui.</Link>
+      <Link to="/users/login">Já possui conta? Fala login aqui.</Link>
     </>
   );
 };

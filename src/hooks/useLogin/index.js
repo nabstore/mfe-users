@@ -12,6 +12,7 @@ const useLogin = (loginAction) => {
   const cart = useSelector((state) => state.cart);
 
   const login = async (email, password) => {
+    setIsLoading(true);
     apiMethods
       .login({ email, password })
       .then((resp) => {
@@ -23,6 +24,7 @@ const useLogin = (loginAction) => {
         else navigate("/");
       })
       .catch((err) => {
+        setIsLoading(false);
         if (err.response?.status === 400) {
           setError(err.response);
           return;

@@ -38,9 +38,28 @@ const logout = async () => {
   return res.data;
 };
 
+const createUsuario = async ({ nome, email, senha, tipoUsuarioId }) => {
+  const res = await api.post(
+    `/usuarios`,
+    {
+      nome,
+      email,
+      senha,
+      tipoUsuarioId,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return res.data;
+};
+
 const apiMethods = {
-    login,
-    logout,
+  createUsuario,
+  login,
+  logout,
 };
 
 export default apiMethods;

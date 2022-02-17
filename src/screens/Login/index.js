@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { Button } from "@nabstore/styleguide";
+import { Button, LoadingIcon } from "@nabstore/styleguide";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faKey, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Input, Title, Label, Line, SignUpLink } from "./styles";
 import Container from "../../components/Container";
 import useLogin from "../../hooks/useLogin";
-import LoadingIcons from "react-loading-icons";
 
 const Login = ({ loginAction }) => {
   const [email, setEmail] = useState("");
@@ -55,7 +54,7 @@ const Login = ({ loginAction }) => {
           margin="50px 0"
           disabled={password === "" || email === ""}
         >
-          {isLoading ? <LoadingIcons.Oval stroke="#2f2f2f" /> : "Entrar"}
+          {isLoading ? <LoadingIcon.Oval stroke="#2f2f2f" /> : "Entrar"}
         </Button.Secondary>
 
         <div className="d-flex justify-content-center">

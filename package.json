@@ -1,8 +1,8 @@
 {
   "name": "@nabstore/mfe-users",
   "scripts": {
-    "start": "webpack serve",
-    "start:standalone": "webpack serve --env standalone",
+    "start": "webpack serve -- --port 5600",
+    "start:standalone": "webpack serve -- --port 5600 --env standalone",
     "build": "concurrently yarn:build:*",
     "build:webpack": "webpack --mode=production",
     "analyze": "webpack --mode=production --env analyze",
@@ -45,6 +45,7 @@
   "dependencies": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-router-dom": "^6.2.1",
     "single-spa-react": "^4.3.1"
   }
 }

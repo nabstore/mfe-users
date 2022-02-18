@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, LoadingIcon } from "@nabstore/styleguide";
-import { Container } from "./styles";
 import useCreateUser from "../../hooks/useCreateUser";
+import { CreateUserContainer } from "../../components/CreateUserContainer";
 
 const Signup = () => {
   const [nome, setNome] = useState("");
@@ -41,7 +41,7 @@ const Signup = () => {
   }, [error]);
 
   return (
-    <Container className="container">
+    <CreateUserContainer className="container">
       <div className="d-flex justify-content-center">
         <h1>Faça seu cadastro</h1>
       </div>
@@ -107,7 +107,7 @@ const Signup = () => {
           {isLoading ? <LoadingIcon.Oval stroke="#2f2f2f" /> : "Criar"}
         </Button.Secondary>
       </form>
-    </Container>
+    </CreateUserContainer>
   );
 };
 

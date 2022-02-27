@@ -56,8 +56,42 @@ const createUsuario = async ({ nome, email, senha, tipoUsuarioId }) => {
   return res.data;
 };
 
+const fetchEnderecos = async () => {
+  const res = await api.get(`/enderecos`);
+  return res.data;
+};
+
+const createEndereco = async ({
+  logradouro,
+  bairro,
+  numero,
+  cidade,
+  uf,
+  cep,
+}) => {
+  const res = await api.post(
+    `/enderecos`,
+    {
+      logradouro,
+      bairro,
+      numero,
+      cidade,
+      uf,
+      cep,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return res.data;
+};
+
 const apiMethods = {
+  createEndereco,
   createUsuario,
+  fetchEnderecos,
   login,
   logout,
 };

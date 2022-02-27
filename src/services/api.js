@@ -56,8 +56,14 @@ const createUsuario = async ({ nome, email, senha, tipoUsuarioId }) => {
   return res.data;
 };
 
+const fetchEnderecos = async () => {
+  const res = await api.get(`/enderecos`);
+  return res.data;
+};
+
 const apiMethods = {
   createUsuario,
+  fetchEnderecos,
   login,
   logout,
 };

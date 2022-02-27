@@ -3,32 +3,40 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
-import apiMethods from "../../services/api";
 import { Data, Label, CardTitle, Card } from "./styles";
-import { Anchor, Button, Typography } from "@nabstore/styleguide";
+import { Anchor, Button, LoadingIcon, Typography } from "@nabstore/styleguide";
 import CreateEnderecoModal from "../../components/CreateEnderecoModal";
+import useGetEnderecos from "../../hooks/useGetEnderecos";
 
 const Enderecos = ({ selectEnderecoAction }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [enderecos, setEnderecos] = useState([]);
+  const { data: enderecos, isLoading, error } = useGetEnderecos();
   const [isCreateEnderecoModalOpen, setIsCreateEnderecoModalOpen] =
     useState(false);
-
-  useEffect(() => {
-    apiMethods
-      .fetchEnderecos()
-      .then((resp) => setEnderecos(resp))
-      .catch((err) => console.error("Erro ao carregar endereços", err));
-  }, []);
 
   const handleSelect = (endereco) => {
     dispatch(selectEnderecoAction(endereco));
     navigate("/checkout");
   };
 
+  if (isLoading) {
+    return (
+      <div className="container pb-5">
+        <Anchor.GoBack path="/cartoes" text="Voltar aos cartões" />
+
+        <div className="d-flex justify-content-center mt-4">
+          <Typography.Title>Endereços</Typography.Title>
+        </div>
+        <div className="d-flex flex-column align-items-center mt-5">
+          <LoadingIcon.Oval stroke="#2f2f2f" />
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="container">
+    <div className="container pb-5">
       <CreateEnderecoModal
         handleClose={() => setIsCreateEnderecoModalOpen(false)}
         showModal={isCreateEnderecoModalOpen}

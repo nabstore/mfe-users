@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,12 +6,14 @@ import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import apiMethods from "../../services/api";
 import { Data, Label, CardTitle, Card } from "./styles";
 import { Anchor, Button, Typography } from "@nabstore/styleguide";
+import CreateEnderecoModal from "../../components/CreateEnderecoModal";
 
 const Enderecos = ({ selectEnderecoAction }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [enderecos, setEnderecos] = useState([]);
-  const [showModal, setShowModal] = useState(false);
+  const [isCreateEnderecoModalOpen, setIsCreateEnderecoModalOpen] =
+    useState(false);
 
   useEffect(() => {
     apiMethods
@@ -26,16 +28,16 @@ const Enderecos = ({ selectEnderecoAction }) => {
   };
 
   return (
-    <div className="container-sm">
-      {/* <AddEndereco
-        handleClose={() => setShowModal(false)}
-        showModal={showModal}
-      /> */}
+    <div className="container">
+      <CreateEnderecoModal
+        handleClose={() => setIsCreateEnderecoModalOpen(false)}
+        showModal={isCreateEnderecoModalOpen}
+      />
 
       <Anchor.GoBack path="/cartoes" text="Voltar aos cartões" />
 
       <div className="float-end">
-        <Button.Primary onClick={() => setShowModal(true)}>
+        <Button.Primary onClick={() => setIsCreateEnderecoModalOpen(true)}>
           <FontAwesomeIcon className="me-2" icon={faPlusCircle} /> Novo Endereço
         </Button.Primary>
       </div>

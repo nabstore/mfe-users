@@ -61,7 +61,35 @@ const fetchEnderecos = async () => {
   return res.data;
 };
 
+const createEndereco = async ({
+  logradouro,
+  bairro,
+  numero,
+  cidade,
+  uf,
+  cep,
+}) => {
+  const res = await api.post(
+    `/enderecos`,
+    {
+      logradouro,
+      bairro,
+      numero,
+      cidade,
+      uf,
+      cep,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return res.data;
+};
+
 const apiMethods = {
+  createEndereco,
   createUsuario,
   fetchEnderecos,
   login,

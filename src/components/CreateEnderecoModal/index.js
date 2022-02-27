@@ -1,35 +1,20 @@
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
-import apiMethods from "../../services/api";
-import { useNavigate } from "react-router";
-import { Button } from "@nabstore/styleguide";
+import { Button, LoadingIcon } from "@nabstore/styleguide";
+import useCreateEndereco from "../../hooks/useCreateEndereco";
 
 const CreateEnderecoModal = ({ showModal, handleClose }) => {
   const [logradouro, setLogradouro] = useState("");
   const [bairro, setBairro] = useState("");
   const [numero, setNumero] = useState(0);
   const [cidade, setCidade] = useState("Manaus");
-  const navigate = useNavigate();
   const [uf, setUf] = useState("AM");
   const [cep, setCep] = useState("");
+  const { isLoading, createEndereco } = useCreateEndereco();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    apiMethods
-      .createEndereco({
-        logradouro,
-        bairro,
-        numero,
-        cep,
-        uf,
-        cidade,
-      })
-      .then((resp) => {
-        navigate(0);
-      })
-      .catch((err) => {
-        console.error("Erro ao criar endereço", err);
-      });
+    createEndereco(logradouro, bairro, numero, cep, uf, cidade);
   };
 
   return (
@@ -114,7 +99,7 @@ const CreateEnderecoModal = ({ showModal, handleClose }) => {
               cidade === ""
             }
           >
-            Criar
+            {isLoading ? <LoadingIcon.Oval stroke="#2f2f2f" /> : "Criar"}
           </Button.Secondary>
         </form>
       </Modal.Body>

@@ -18,7 +18,7 @@ const useGetEnderecos = () => {
         setData(undefined);
         setIsLoading(false);
         setError(err);
-        console.error("Erro ao criar usuário.", err);
+        console.error("Erro ao carregar enderecos.", err);
       });
   }, []);
 

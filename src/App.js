@@ -1,6 +1,7 @@
 import React from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { usersRoutes } from "@nabstore/utils";
 import Login from "./screens/Login";
 import Signup from "./screens/Signup";
 import CreateColaborador from "./screens/CreateColaborador";
@@ -13,18 +14,18 @@ const App = ({ name, store, loginAction, selectEnderecoAction }) => (
         <Routes>
           <Route
             exact
-            path="/users/login"
+            path={usersRoutes.LOGIN}
             element={<Login loginAction={loginAction} />}
           />
-          <Route exact path="/users/signup" element={<Signup />} />
+          <Route exact path={usersRoutes.SIGNUP} element={<Signup />} />
           <Route
             exact
-            path="/users/create-colaborador"
+            path={usersRoutes.CREATE_COLABORADOR}
             element={<CreateColaborador />}
           />
           <Route
             exact
-            path="/users/enderecos"
+            path={usersRoutes.ENDERECOS}
             element={<Enderecos selectEnderecoAction={selectEnderecoAction} />}
           />
         </Routes>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import { routes } from "@nabstore/utils";
 import apiMethods from "../../services/api";
 
 const useLogin = (loginAction) => {
@@ -20,8 +21,8 @@ const useLogin = (loginAction) => {
         setIsLoading(false);
         setError(undefined);
         dispatch(loginAction(resp));
-        if (cart.produtos.length > 0) navigate("/enderecos");
-        else navigate("/");
+        if (cart.produtos.length > 0) navigate(routes.ENDERECOS);
+        else navigate(routes.HOME);
       })
       .catch((err) => {
         setIsLoading(false);

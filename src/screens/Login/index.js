@@ -3,6 +3,7 @@ import { Button, LoadingIcon } from "@nabstore/styleguide";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faKey, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Input, Title, Label, Line, SignUpLink } from "./styles";
+import { routes } from "@nabstore/utils";
 import Container from "../../components/Container";
 import useLogin from "../../hooks/useLogin";
 
@@ -58,7 +59,7 @@ const Login = ({ loginAction }) => {
         </Button.Secondary>
 
         <div className="d-flex justify-content-center">
-          <SignUpLink to="/users/signup">
+          <SignUpLink to={routes.SIGNUP}>
             Não possuo uma conta <FontAwesomeIcon icon={faArrowRight} />
           </SignUpLink>
         </div>

@@ -14,6 +14,7 @@ module.exports = (webpackConfigEnv, argv) => {
   return merge(defaultConfig, {
     plugins: [
       new webpack.EnvironmentPlugin(['API_BASE_URL']),
+      new webpack.EnvironmentPlugin(['SERVICE_USERS_BASE_URL']),
     ],
   });
 };

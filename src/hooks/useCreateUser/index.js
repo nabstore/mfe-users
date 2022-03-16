@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import apiMethods from "../../services/api";
+import usersMethods from "../../services/users";
 
 const useCreateUser = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -10,7 +10,7 @@ const useCreateUser = () => {
 
   const createUser = async (nome, email, senha, tipoUsuarioId) => {
     setIsLoading(true);
-    apiMethods
+    usersMethods
       .createUsuario({
         nome,
         email,

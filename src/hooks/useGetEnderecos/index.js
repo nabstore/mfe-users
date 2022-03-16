@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import apiMethods from "../../services/api";
+import usersMethods from "../../services/users";
 
 const useGetEnderecos = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -7,7 +7,7 @@ const useGetEnderecos = () => {
   const [error, setError] = useState(undefined);
 
   useEffect(() => {
-    apiMethods
+    usersMethods
       .fetchEnderecos()
       .then((resp) => {
         setData(resp);

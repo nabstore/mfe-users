@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import apiMethods from "../../services/api";
+import usersMethods from "../../services/users";
 
 const useCreateEndereco = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -10,7 +10,7 @@ const useCreateEndereco = () => {
 
   const createEndereco = async (logradouro, bairro, numero, cep, uf, cidade) => {
     setIsLoading(true);
-    apiMethods
+    usersMethods
       .createEndereco({
         logradouro,
         bairro,

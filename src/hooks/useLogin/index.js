@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { routes } from "@nabstore/utils";
-import apiMethods from "../../services/api";
+import usersMethods from "../../services/users";
 
 const useLogin = (loginAction) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -14,7 +14,7 @@ const useLogin = (loginAction) => {
 
   const login = async (email, password) => {
     setIsLoading(true);
-    apiMethods
+    usersMethods
       .login({ email, password })
       .then((resp) => {
         setData(resp);

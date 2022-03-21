@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { routes, tipoUsuario } from "@nabstore/utils";
 import usersMethods from "../../services/users";
 
 const useCreateUser = () => {
@@ -21,10 +22,10 @@ const useCreateUser = () => {
         setData(resp);
         setError(undefined);
         setIsLoading(false);
-        if (tipoUsuarioId === 1) {
-          navigate(`/users/login`);
+        if (tipoUsuarioId === tipoUsuario.CLIENTE) {
+          navigate(routes.LOGIN);
         } else {
-          navigate(`/`);
+          navigate(routes.HOME);
         }
       })
       .catch((err) => {

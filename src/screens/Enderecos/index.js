@@ -3,16 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
-import { Data, Label, CardTitle, Card } from "./styles";
 import { Anchor, Button, LoadingIcon, Typography } from "@nabstore/styleguide";
 import { routes } from "@nabstore/utils";
 import CreateEnderecoModal from "../../components/CreateEnderecoModal";
 import useGetEnderecos from "../../hooks/useGetEnderecos";
+import EnderecoCard from "../../components/EnderecoCard";
 
 const Enderecos = ({ selectEnderecoAction }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { data: enderecos, isLoading } = useGetEnderecos();
+  const { data: enderecos, isLoading, error } = useGetEnderecos();
   const [isCreateEnderecoModalOpen, setIsCreateEnderecoModalOpen] =
     useState(false);
 
@@ -36,6 +36,46 @@ const Enderecos = ({ selectEnderecoAction }) => {
     );
   }
 
+  const EnderecosList = () => {
+    if (isLoading || !enderecos) {
+      return (
+        <div className="d-flex flex-column align-items-center mt-5">
+          <LoadingIcon.Oval stroke="#2f2f2f" />
+        </div>
+      );
+    }
+
+    if (error) {
+      return (
+        <div className="d-flex flex-column align-items-center mt-5">
+          <Typography.Subtitle>Erro ao carregar endereços.</Typography.Subtitle>
+        </div>
+      );
+    }
+
+    if (enderecos.length === 0) {
+      return (
+        <div className="d-flex flex-column align-items-center mt-5">
+          <Typography.Subtitle>
+            Você ainda não possui endereços cadastrados.
+          </Typography.Subtitle>
+        </div>
+      );
+    }
+
+    return (
+      <div className="d-flex flex-column align-items-center mb-5">
+        {enderecos.map((endereco) => (
+          <EnderecoCard
+            key={endereco.id}
+            endereco={endereco}
+            handleSelect={handleSelect}
+          />
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div className="container pb-5">
       <CreateEnderecoModal
@@ -55,42 +95,7 @@ const Enderecos = ({ selectEnderecoAction }) => {
         <Typography.Title>Endereços</Typography.Title>
       </div>
 
-      <div className="d-flex flex-column align-items-center mb-5">
-        {enderecos.map((endereco) => (
-          <Card
-            key={endereco.id}
-            className="card"
-            onClick={() => handleSelect(endereco)}
-            style={{ cursor: "pointer" }}
-          >
-            <CardTitle>Endereço {endereco.id}</CardTitle>
-            <div className="d-flex flex-row justify-content-around">
-              <div className="d-flex flex-column">
-                <Data>
-                  <Label>Logradouro:</Label> {endereco.logradouro}
-                </Data>
-                <Data>
-                  <Label>Bairro:</Label> {endereco.bairro}
-                </Data>
-                <Data>
-                  <Label>Numero:</Label> {endereco.numero}
-                </Data>
-              </div>
-              <div className="d-flex flex-column">
-                <Data>
-                  <Label>Cidade:</Label> {endereco.cidade}
-                </Data>
-                <Data>
-                  <Label>UF:</Label> {endereco.uf}
-                </Data>
-                <Data>
-                  <Label>CEP:</Label> {endereco.cep}
-                </Data>
-              </div>
-            </div>
-          </Card>
-        ))}
-      </div>
+      <EnderecosList />
     </div>
   );
 };
